@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+      input {
+        width: 20px;
+        height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+    <table>
+      <tr>
+        <th><input id="r1c1" oninput="kontrol(this.value,id)" type="text" maxlength="1" /></th>
+        <th><input id="r1c2" oninput="kontrol(this.value,id)" type="text" maxlength="1" /></th>
+        <th><input id="r1c3" oninput="kontrol(this.value,id)" type="text" maxlength="1" /></th>
+      </tr>
+      <tr>
+        <td><input id="r2c1" oninput="kontrol(this.value,id)" type="text" maxlength="1" /></td>
+        <td><input id="r2c2" oninput="kontrol(this.value,id)" type="text" maxlength="1" /></td>
+        <td><input id="r2c3" oninput="kontrol(this.value,id)" type="text" maxlength="1" /></td>
+      </tr>
+      <tr>
+        <td><input id="r3c1" oninput="kontrol(this.value,id)" type="text" maxlength="1" /></td>
+        <td><input id="r3c2" oninput="kontrol(this.value,id)" type="text" maxlength="1" /></td>
+        <td><input id="r3c3" oninput="kontrol(this.value,id)" type="text" maxlength="1" /></td>
+      </tr>
+    </table>
+    <button
+      style="margin-top: 5px; width: 105px"
+      id="sonuc"
+      onclick="sonucGoster()"
+    >
+      Sonuç
+    </button>
+    <p id="mesaj"></p>
+  </div>
+    <script>
+      function kontrol(val,myId){
+        if(val != 'x' && val != 'o'){
+          document.getElementById(myId).value="";
+        }
+      }
+
+      function sonucGoster() {
+        var dizi = [[], [], []];
+
+        dizi[0][0] = document.getElementById("r1c1").value;
+        dizi[0][1] = document.getElementById("r1c2").value;
+        dizi[0][2] = document.getElementById("r1c3").value;
+        dizi[1][0] = document.getElementById("r2c1").value;
+        dizi[1][1] = document.getElementById("r2c2").value;
+        dizi[1][2] = document.getElementById("r2c3").value;
+        dizi[2][0] = document.getElementById("r3c1").value;
+        dizi[2][1] = document.getElementById("r3c2").value;
+        dizi[2][2] = document.getElementById("r3c3").value;
+
+        let kazananX = 0;
+        let kazananO = 0;
+
+        //---------- Yatayda Ara ----------
+        if (kazananX == 0 && kazananX == 0) {
+          for (let i = 0; i < dizi.length; i++) {
+            kazananX = 0;
+            kazananO = 0;
+            for (let j = 0; j < dizi.length; j++) {
+              if (dizi[i][j] == "x") {
+                kazananX++;
+                if (kazananX == 3) 
+                  break;
+              } 
+              else if (dizi[i][j] == "o") {
+                kazananO++;
+                if (kazananO == 3) 
+                  break;
+              }
+            }
+            if (kazananX == 3 || kazananO == 3) 
+              break;
+          }
+        } 
+
+        //---------- Dikeyde Ara ----------
+        if (kazananX != 3 && kazananO != 3) {
+          for (let i = 0; i < dizi.length; i++) {
+            kazananX = 0;
+            kazananO = 0;
+            for (let j = 0; j < dizi.length; j++) {
+              if (dizi[j][i] == "x") {
+                kazananX++;
+                if (kazananX == 3) 
+                  break;
+              } 
+              else if (dizi[j][i] == "o") {
+                kazananO++;
+                if (kazananO == 3) 
+                  break;
+              }
+            }
+            if (kazananX == 3 || kazananO == 3) 
+              break;
+          }
+        } 
+
+        //---------- Çaprazda Ara ----------
+        if(kazananX !=3 && kazananO!=3) {
+          for(let i=0;i<dizi.length;i++)
+          {
+            if (dizi[i][i] == "x"){
+              kazananX++;
+              if (kazananX == 3) 
+                break;
+            }
+            if (dizi[i][i] == "o"){
+              kazananO++;
+              if (kazananO == 3) 
+                break;
+            }
+          }
+        }
+     
+        if (kazananX == 3)
+          document.getElementById("mesaj").innerHTML = "X kazandi..";
+        else if (kazananO == 3)
+          document.getElementById("mesaj").innerHTML = "O kazandi..";
+        else 
+          document.getElementById("mesaj").innerHTML = "Berabere..";
+
+        document.getElementById("r1c1").value = "";
+        document.getElementById("r1c2").value = "";
+        document.getElementById("r1c3").value = "";
+        document.getElementById("r2c1").value = "";
+        document.getElementById("r2c2").value = "";
+        document.getElementById("r2c3").value = "";
+        document.getElementById("r3c1").value = "";
+        document.getElementById("r3c2").value = "";
+        document.getElementById("r3c3").value = "";
+    }
+    </script>
+  </body>
+</html>
